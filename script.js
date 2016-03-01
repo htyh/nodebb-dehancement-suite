@@ -62,7 +62,7 @@ function isOwn(url) {
 }
 function displayContents(data){
 	var name=data.template.name;
-	if (name==="category"||name==="recent"){
+	if (name==="category"||name==="recent"||name==="unread"){
 		data.topics.forEach(function(topic){
 			var item = "<li>"+(topic.unread?"*":"")+
 				"<a href='/topic/"+topic.slug+"'><b>"+topic.title+"</b></a> "+
