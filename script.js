@@ -87,7 +87,7 @@ function displayContents(data){
 				"<span class='votes'>"+posOrNeg(post.votes)+"</span>"+
 				" <a href='' class='upvote"+  (post.upvoted?" done":"")+  "' onclick='upvote(this,event)'>+</a>"+
 				" <a href='' class='downvote"+(post.downvoted?" done":"")+"' onclick='downvote(this,event)'>-</a>"+
-				" <span class='timestamp'>["+post.relativeTime+
+				" <span class='timestamp'>["+post.timestampISO+
 				"]</span> <a href='' onclick='setToPid(event,"+post.pid+",\""+post.user.userslug+"\")'>Reply</a>"+
 				"</li>";
 			var details = "<ul><li>"+post.content+"</li></ul>";
@@ -378,7 +378,7 @@ function submitPost() {
 	});
 }
 function posOrNeg(number) {
-	return (number>0?"+":"")+number;
+	return (number>0?"+":number===0?"&nbsp;":"")+number;
 }
 function upvote(a,event){
 	vote(a, event, true, $(a).hasClass("done"));
@@ -406,7 +406,7 @@ function vote(a, event, up, un) {
 			score--;
 		}
 	}
-	v.text(posOrNeg(score));
+	v.html(posOrNeg(score));
 
 	var pid = li.attr("id").slice(4); // post123 -> 123
 	var room = "topic_"+$("#tid").val();
